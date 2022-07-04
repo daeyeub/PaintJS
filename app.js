@@ -1,5 +1,5 @@
 const canvas = document.getElementById("jsCanvas");
-
+const colors = document.getElementsByClassName("jsColor");
 const ctx = canvas.getContext("2d");
 
 canvas.width = 700;
@@ -27,10 +27,17 @@ function onMouseMove(event) {
     ctx.stroke();
   }
 }
-
+function handleColorClick(event) {
+  const color = event.target.style.backgroundColor;
+  ctx.strokeStyle = color;
+}
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
 }
+
+Array.from(colors).forEach((color) =>
+  color.addEventListener("click", handleColorClick)
+);
