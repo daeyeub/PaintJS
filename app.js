@@ -36,14 +36,25 @@ function onMouseMove(event) {
     ctx.moveTo(x, y);
   } else {
     if (removing) {
-      ctx.clearRect(x, y, 30, 30);
+      //지우개모드
+      //ctx.strokeStyle = "white";
+      //ctx.lineTo(x, y);
+      //ctx.stroke();
+      console.log("eraser~~~", x, y);
+      ctx.clearRect(x, y, 20, 20);
     } else {
       ctx.lineTo(x, y);
       ctx.stroke();
     }
   }
 }
+function handleEraserMode(event) {
+  if (!removing) {
+    removing = !removing;
+  }
+}
 function handleColorClick(event) {
+  removing = false;
   const color = event.target.style.backgroundColor;
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
@@ -53,13 +64,12 @@ function handleRangeChange(event) {
   ctx.lineWidth = event.target.value;
 }
 function handleModeClick(event) {
+  removing = false;
   if (filling === true) {
     filling = false;
     mode.innerText = "Fill";
-    removing = false;
   } else {
     filling = true;
-    removing = false;
     mode.innerText = "Paint";
   }
 }
@@ -80,15 +90,7 @@ function handleSaveClick(event) {
   link.download = "PaintJS[EXPORT]";
   link.click();
 }
-function handleEraserMode(event) {
-  if (!removing) {
-    painting = false;
-    filling = false;
-    eraser.classList.add("sexy");
-  } else {
-    eraser.classList.remove("sexy");
-  }
-}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
