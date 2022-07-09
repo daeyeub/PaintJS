@@ -5,6 +5,7 @@ const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
 const eraser = document.getElementById("jsEraser");
+const resetBtn = document.getElementById("jsReset");
 
 const INITIAL_COLOR = "#2c2c2c"; //검정색
 const CANVAS_SIZE = 700;
@@ -90,6 +91,12 @@ function handleSaveClick(event) {
   link.download = "PaintJS[EXPORT]";
   link.click();
 }
+function handleBtnResetBtn() {
+  painting = false;
+  removing = false;
+  filling = false;
+  canvas.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+}
 
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
@@ -98,6 +105,9 @@ if (canvas) {
   canvas.addEventListener("mouseleave", stopPainting);
   canvas.addEventListener("click", handleCanvasClick);
   canvas.addEventListener("contextmenu", handleCM);
+}
+if (resetBtn) {
+  resetBtn.addEventListener("click", handleBtnResetBtn);
 }
 if (colors) {
   Array.from(colors).forEach((color) =>
